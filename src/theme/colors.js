@@ -60,6 +60,16 @@ const light = {
     border: 'rgba(255,255,255,0.9)',
   },
 
+  search: {
+    background: 'rgba(255,255,255,0.7)',
+    border: 'rgba(255,255,255,0.95)',
+    focusBackground: 'rgba(255,255,255,0.95)',
+    focusBorder: 'rgba(139,92,246,0.7)',
+    placeholder: '#8A94AD',
+  },
+
+  slider: { sheenOpacity: 0.55 },
+
   tabBar: {
     tint: 'rgba(255,255,255,0.72)',
     border: 'rgba(255,255,255,0.85)',
@@ -125,6 +135,16 @@ const dark = {
     background: 'rgba(255,255,255,0.07)',
     border: 'rgba(255,255,255,0.12)',
   },
+
+  search: {
+    background: 'rgba(255,255,255,0.08)',
+    border: 'rgba(255,255,255,0.14)',
+    focusBackground: 'rgba(255,255,255,0.13)',
+    focusBorder: 'rgba(167,139,250,0.8)',
+    placeholder: '#7D869C',
+  },
+
+  slider: { sheenOpacity: 0.12 },
 
   tabBar: {
     tint: 'rgba(16,16,26,0.72)',
