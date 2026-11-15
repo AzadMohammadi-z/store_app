@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Keyboard,
   LayoutChangeEvent,
   PanResponder,
+  Platform,
   Pressable,
   Text,
   View,
@@ -201,6 +203,32 @@ export default function CustomTabBar({
   const live = useRef({ tabWidth, count, visualIndex, state, navigation });
   live.current = { tabWidth, count, visualIndex, state, navigation };
 
+  const hide = useSharedValue(0);
+
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
+    const hideEvent =
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+
+    const showSub = Keyboard.addListener(showEvent, () => {
+      hide.value = withTiming(1, { duration: 180 });
+    });
+    const hideSub = Keyboard.addListener(hideEvent, () => {
+      hide.value = withTiming(0, { duration: 220 });
+    });
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, [hide]);
+
+  const wrapperHideStyle = useAnimatedStyle(() => ({
+    opacity: 1 - hide.value,
+    transform: [{ translateY: hide.value * (TAB_BAR.barHeight + 40) }],
+  }));
+
   useEffect(() => {
     if (tabWidth === 0) return;
     const target = visualIndex * tabWidth;
@@ -370,11 +398,12 @@ export default function CustomTabBar({
   const litVisual = dragVisual ?? visualIndex;
 
   return (
-    <View
+    <Animated.View
       pointerEvents="box-none"
       style={[
         styles.wrapper,
         { bottom: Math.max(insets.bottom, TAB_BAR.minBottomInset) },
+        wrapperHideStyle,
       ]}
     >
       <View
@@ -441,6 +470,6 @@ export default function CustomTabBar({
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 }

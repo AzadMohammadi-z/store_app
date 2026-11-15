@@ -1,16 +1,19 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import Screen from '../../components/common/Screen';
-import { TAB_BAR_SPACE } from '../../constants/layout';
+import Animated, { FadeIn } from 'react-native-reanimated';
+import { useAuth } from '../../auth/AuthProvider';
+import AccountNavigator from '../../navigation/AccountNavigator';
+import AccountDashboardScreen from './AccountDashboardScreen';
 
 export default function AccountScreen() {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <Screen>
-      <ScrollView contentContainerStyle={{ paddingBottom: TAB_BAR_SPACE }}>
-        <Text style={{ fontFamily: 'Vazirmatn-Bold', fontSize: 18 }}>
-          حساب کاربری
-        </Text>
-      </ScrollView>
-    </Screen>
+    <Animated.View
+      key={isLoggedIn ? 'dashboard' : 'auth'}
+      entering={FadeIn.duration(350)}
+      style={{ flex: 1 }}
+    >
+      {isLoggedIn ? <AccountDashboardScreen /> : <AccountNavigator />}
+    </Animated.View>
   );
 }

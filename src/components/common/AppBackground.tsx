@@ -12,15 +12,24 @@ import { palettes } from '../../theme/colors';
 import { useTheme } from '../../theme/ThemeProvider';
 
 type Palette = typeof palettes.light;
+export type BackgroundVariant = 'default' | 'auth';
+
+type LayerProps = {
+  palette: Palette;
+  prefix: string;
+  variant: BackgroundVariant;
+};
 
 const Layer = React.memo(function Layer({
   palette,
   prefix,
-}: {
-  palette: Palette;
-  prefix: string;
-}) {
-  const { base, blobs } = palette.background;
+  variant,
+}: LayerProps) {
+  const { base } = palette.background;
+  const blobs =
+    variant === 'auth'
+      ? palette.background.authBlobs
+      : palette.background.blobs;
 
   return (
     <Svg
@@ -62,18 +71,22 @@ const Layer = React.memo(function Layer({
   );
 });
 
-function AppBackground() {
+function AppBackground({
+  variant = 'default',
+}: {
+  variant?: BackgroundVariant;
+}) {
   const { progress } = useTheme();
   const darkStyle = useAnimatedStyle(() => ({ opacity: progress.value }));
 
   return (
     <>
-      <Layer palette={palettes.light} prefix="light" />
+      <Layer palette={palettes.light} prefix="light" variant={variant} />
       <Animated.View
         pointerEvents="none"
         style={[StyleSheet.absoluteFill, darkStyle]}
       >
-        <Layer palette={palettes.dark} prefix="dark" />
+        <Layer palette={palettes.dark} prefix="dark" variant={variant} />
       </Animated.View>
     </>
   );

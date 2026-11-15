@@ -11,6 +11,7 @@ import AppSplash from '../components/AppSplash';
 import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { StatusBar, View } from 'react-native';
 import AppBackground from '../components/common/AppBackground';
+import { AuthProvider } from '../auth/AuthProvider';
 
 function ThemedApp() {
   const { theme, isDark, blurType } = useTheme();
@@ -55,7 +56,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <ThemedApp />
+        <AuthProvider>
+          <ThemedApp />
+        </AuthProvider>
       </ThemeProvider>
       {!splashGone && (
         <AppSplash visible={!appReady} onHidden={() => setSplashGone(true)} />

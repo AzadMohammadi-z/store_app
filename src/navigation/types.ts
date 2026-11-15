@@ -17,3 +17,8 @@ declare global {
     interface RootParamList extends RootStackParamList {}
   }
 }
+
+export type AccountStackParamList = {
+  Login: undefined;
+  Verify: { phone: string };
+};
