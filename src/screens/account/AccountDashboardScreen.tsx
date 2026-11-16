@@ -1,60 +1,216 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import GradientButton from '../../components/common/GradientButton';
+import { Alert, ScrollView, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+import {
+  Bell,
+  FileText,
+  Headphones,
+  Heart,
+  MapPin,
+  MessageSquare,
+  Star,
+  Store,
+  Tag,
+} from 'lucide-react-native';
+import AccountHeader from '../../components/account/AccountHeader';
+import ActiveOrderCard, {
+  type ActiveOrder,
+} from '../../components/account/ActiveOrderCard';
+import AppearanceSection from '../../components/account/AppearanceSwitch';
+import LogoutButton from '../../components/account/LogoutButton';
+import MenuList, {
+  MenuRows,
+  type MenuItem,
+} from '../../components/account/MenuList';
+import OrderStatusCard from '../../components/account/OrderStatusCard';
+import type { OrderStatus } from '../../components/account/orderStatus';
+import ProfileCard from '../../components/account/ProfileCard';
+import Divider from '../../components/common/Divider';
+import GlassCard from '../../components/common/GlassCard';
 import Screen from '../../components/common/Screen';
 import { useAuth } from '../../auth/AuthProvider';
 import { SCREEN_PADDING, TAB_BAR_SPACE } from '../../constants/layout';
-import { fonts } from '../../theme/fonts';
-import { ThemedText, ThemedView } from '../../theme/themed';
+
+// داده‌ی نمونه؛ بعداً از API می‌آید
+const USER_NAME = 'کاربر نوازون';
+
+const ORDER_COUNTS: Record<OrderStatus, number> = {
+  pending: 1,
+  preparing: 2,
+  shipped: 1,
+  delivered: 0,
+};
+
+const ACTIVE_ORDER: ActiveOrder = {
+  number: '184520',
+  packages: [
+    {
+      id: '1',
+      storeName: 'فروشگاه یک',
+      itemCount: 2,
+      status: 'shipped',
+      from: '#3B82F6',
+      to: '#6D4AFF',
+    },
+    {
+      id: '2',
+      storeName: 'فروشگاه دو',
+      itemCount: 1,
+      status: 'preparing',
+      from: '#EC4899',
+      to: '#8B5CF6',
+    },
+  ],
+};
+
+const todo = () => {
+  // TODO: رفتن به صفحه‌ی مربوطه
+};
+
+const MENU_ITEMS: MenuItem[] = [
+  {
+    id: 'favorites',
+    label: 'علاقه‌مندی‌ها',
+    Icon: Heart,
+    tone: 'red',
+    onPress: todo,
+  },
+  {
+    id: 'followed',
+    label: 'فروشگاه‌های دنبال‌شده',
+    Icon: Store,
+    tone: 'indigo',
+    onPress: todo,
+  },
+  {
+    id: 'chats',
+    label: 'گفتگوها با فروشندگان',
+    Icon: MessageSquare,
+    tone: 'teal',
+    badge: 3,
+    onPress: todo,
+  },
+  {
+    id: 'addresses',
+    label: 'آدرس‌های من',
+    Icon: MapPin,
+    tone: 'indigo',
+    onPress: todo,
+  },
+  {
+    id: 'reviews',
+    label: 'نظرات من',
+    Icon: Star,
+    tone: 'indigo',
+    onPress: todo,
+  },
+  {
+    id: 'coupons',
+    label: 'کدهای تخفیف',
+    Icon: Tag,
+    tone: 'red',
+    onPress: todo,
+  },
+];
+
+const SETTINGS_ITEMS: MenuItem[] = [
+  {
+    id: 'notifications',
+    label: 'اعلان‌ها',
+    Icon: Bell,
+    tone: 'indigo',
+    onPress: todo,
+  },
+  {
+    id: 'support',
+    label: 'پشتیبانی و راهنما',
+    Icon: Headphones,
+    tone: 'teal',
+    onPress: todo,
+  },
+  {
+    id: 'legal',
+    label: 'قوانین و حریم خصوصی',
+    Icon: FileText,
+    tone: 'indigo',
+    onPress: todo,
+  },
+];
+
+/** ورود نرم و پله‌ای هر بخش */
+function Reveal({
+  index,
+  children,
+}: {
+  index: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(Math.min(index, 7) * 70).duration(400)}
+    >
+      {children}
+    </Animated.View>
+  );
+}
 
 export default function AccountDashboardScreen() {
-  const { logout } = useAuth();
+  const { phone, logout } = useAuth();
+
+  const confirmLogout = () => {
+    Alert.alert('خروج از حساب', 'از حساب کاربری خارج می‌شوی؟', [
+      { text: 'انصراف', style: 'cancel' },
+      { text: 'خروج', style: 'destructive', onPress: logout },
+    ]);
+  };
 
   return (
     <Screen>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           padding: SCREEN_PADDING,
           paddingBottom: TAB_BAR_SPACE,
           gap: 16,
         }}
       >
-        <ThemedText
-          color={t => t.text.primary}
-          style={{ fontFamily: fonts.bold, fontSize: 22, textAlign: 'right' }}
-        >
-          حساب من
-        </ThemedText>
+        <Reveal index={0}>
+          <AccountHeader onPressBell={todo} />
+        </Reveal>
 
-        <ThemedView
-          bg={t => t.card.background}
-          border={t => t.card.border}
-          style={{ borderWidth: 1, borderRadius: 24, padding: 20, gap: 6 }}
-        >
-          <ThemedText
-            color={t => t.text.primary}
-            style={{ fontFamily: fonts.bold, fontSize: 16, textAlign: 'right' }}
-          >
-            خوش آمدید
-          </ThemedText>
-          <ThemedText
-            color={t => t.text.secondary}
-            style={{
-              fontFamily: fonts.regular,
-              fontSize: 13,
-              textAlign: 'right',
-            }}
-          >
-            داشبورد حساب شما این‌جا قرار می‌گیرد.
-          </ThemedText>
-        </ThemedView>
+        <Reveal index={1}>
+          <ProfileCard name={USER_NAME} phone={phone} onEdit={todo} />
+        </Reveal>
 
-        <GradientButton
-          label="خروج از حساب"
-          onPress={logout}
-          from="#EF4444"
-          to="#F43F5E"
-        />
+        <Reveal index={2}>
+          <OrderStatusCard
+            counts={ORDER_COUNTS}
+            onPressAll={todo}
+            onPressStatus={todo}
+          />
+        </Reveal>
+
+        <Reveal index={3}>
+          <ActiveOrderCard order={ACTIVE_ORDER} onTrack={todo} />
+        </Reveal>
+
+        <Reveal index={4}>
+          <MenuList items={MENU_ITEMS} />
+        </Reveal>
+
+        <Reveal index={5}>
+          <GlassCard style={{ overflow: 'hidden', paddingBottom: 4 }}>
+            <AppearanceSection />
+            <View style={{ marginHorizontal: 16 }}>
+              <Divider />
+            </View>
+            <MenuRows items={SETTINGS_ITEMS} />
+          </GlassCard>
+        </Reveal>
+
+        <Reveal index={6}>
+          <LogoutButton onPress={confirmLogout} />
+        </Reveal>
       </ScrollView>
     </Screen>
   );

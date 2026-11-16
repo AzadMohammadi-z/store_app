@@ -6,10 +6,13 @@ import CategoriesScreen from '../screens/categories/CategoriesScreen';
 import CartScreen from '../screens/cart/CartScreen';
 import AccountScreen from '../screens/account/AccountScreen';
 import type { MainTabParamList } from './types';
+import { useCart } from '../cart/CartProvider';
+import { toFaDigits } from '../utils/format';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export default function MainTabs() {
+  const { itemCount } = useCart();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,7 +36,11 @@ export default function MainTabs() {
       <Tab.Screen
         name="Cart"
         component={CartScreen}
-        options={{ title: 'سبد خرید' }}
+        options={{
+          title: 'سبد خرید',
+          tabBarBadge:
+            itemCount > 0 ? toFaDigits(String(itemCount)) : undefined,
+        }}
       />
       <Tab.Screen
         name="Account"

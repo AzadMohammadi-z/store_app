@@ -69,6 +69,7 @@ const light = {
   },
 
   card: {
+    divider: 'rgba(211, 211, 212, 0.18)',
     background: 'rgba(255,255,255,0.65)',
     border: 'rgba(255,255,255,0.9)',
   },
@@ -112,6 +113,27 @@ const light = {
     buttonTo: '#1081BA',
     glow: '#8B5CF6',
     otpFilled: 'rgba(95,112,150,0.18)',
+  },
+  tones: {
+    red: { bg: 'rgba(244,63,94,0.12)', icon: '#E11D48' },
+    indigo: { bg: 'rgba(99,102,241,0.14)', icon: '#4F46E5' },
+    teal: { bg: 'rgba(20,184,166,0.15)', icon: '#0F9D8F' },
+    purple: { bg: 'rgba(139,92,246,0.15)', icon: '#7C3AED' },
+    blue: { bg: 'rgba(59,130,246,0.14)', icon: '#2563EB' },
+    amber: { bg: 'rgba(245,158,11,0.18)', icon: '#B7791F' },
+  },
+  account: {
+    badge: '#5B4BE0',
+    track: 'rgba(95,112,150,0.18)',
+    segmentTrack: 'rgba(95,112,150,0.08)',
+    segmentBorder: 'rgba(95,112,150,0.18)',
+    segmentSelected: 'rgba(139,92,246,0.16)',
+    segmentSelectedBorder: 'rgba(124,58,237,0.5)',
+    logoutBackground: 'rgba(244,63,94,0.08)',
+    logoutBorder: 'rgba(225,29,72,0.35)',
+    logoutText: '#E11D48',
+    trackButtonBackground: 'rgba(124,58,237,0.12)',
+    trackButtonBorder: 'rgba(124,58,237,0.35)',
   },
 };
 
@@ -186,6 +208,7 @@ const dark = {
   },
 
   card: {
+    divider: 'rgba(128, 128, 128, 0.1)',
     background: 'rgba(255,255,255,0.07)',
     border: 'rgba(255,255,255,0.12)',
   },
@@ -229,6 +252,27 @@ const dark = {
     buttonTo: '#1081BA',
     glow: '#8B5CF6',
     otpFilled: 'rgba(255,255,255,0.2)',
+  },
+  tones: {
+    red: { bg: 'rgba(244,63,94,0.28)', icon: '#FF9DB1' },
+    indigo: { bg: 'rgba(99,102,241,0.34)', icon: '#B4B9FF' },
+    teal: { bg: 'rgba(20,184,166,0.28)', icon: '#6EE7E0' },
+    purple: { bg: 'rgba(139,92,246,0.34)', icon: '#CDB8FF' },
+    blue: { bg: 'rgba(59,130,246,0.32)', icon: '#A5C4FF' },
+    amber: { bg: 'rgba(245,158,11,0.2)', icon: '#F8C555' },
+  },
+  account: {
+    badge: '#5B4BE0',
+    track: 'rgba(255,255,255,0.12)',
+    segmentTrack: 'rgba(255,255,255,0.05)',
+    segmentBorder: 'rgba(255,255,255,0.1)',
+    segmentSelected: 'rgba(139,92,246,0.4)',
+    segmentSelectedBorder: 'rgba(167,139,250,0.7)',
+    logoutBackground: 'rgba(244,63,94,0.1)',
+    logoutBorder: 'rgba(244,63,94,0.4)',
+    logoutText: '#FF8FA8',
+    trackButtonBackground: 'rgba(124,58,237,0.3)',
+    trackButtonBorder: 'rgba(167,139,250,0.4)',
   },
 };
 

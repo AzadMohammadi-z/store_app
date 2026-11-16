@@ -12,6 +12,7 @@ import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { StatusBar, View } from 'react-native';
 import AppBackground from '../components/common/AppBackground';
 import { AuthProvider } from '../auth/AuthProvider';
+import { CartProvider } from '../cart/CartProvider';
 
 function ThemedApp() {
   const { theme, isDark, blurType } = useTheme();
@@ -57,7 +58,9 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <AuthProvider>
-          <ThemedApp />
+          <CartProvider>
+            <ThemedApp />
+          </CartProvider>
         </AuthProvider>
       </ThemeProvider>
       {!splashGone && (

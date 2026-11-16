@@ -45,7 +45,7 @@ export default function VerifyScreen({ navigation, route }: Props) {
     setLoading(true);
     // TODO: بررسی کد با API
     await new Promise<void>(resolve => setTimeout(resolve, 800));
-    login();
+    login(phone);
   };
 
   const resend = () => {

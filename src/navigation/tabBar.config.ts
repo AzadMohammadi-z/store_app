@@ -12,20 +12,21 @@ export const TAB_BAR = {
   minBottomInset: 12,
   iconSize: 22, // قبلاً ۲۵
   labelSize: 10.5, // قبلاً ۱۱.۵
-  grabGrow: 22, // بلندتر شدن حباب هنگام گرفتن (حداکثر دو برابر padding)
-  iconGrabScale: 1.22, // بزرگ شدن آیکون زیر حباب هنگام گرفتن
   blurAmount: 80, // شدت بلور
   bubbleInset: 0, // هر چه بیشتر، حباب باریک‌تر و گردتر
 
   // حس انیمیشن (متناسب با اندازه‌ی کوچک‌تر)
-  stretchBase: 10,
-  stretchPerStep: 8,
   stretchMaxSteps: 3,
-  squash: 7, // قبلاً ۹
   iconJump: 7, // قبلاً ۹
   iconActiveScale: 1.08,
   dragThreshold: 8, // حداقل حرکت افقی (پیکسل) تا کشیدن شروع شود
-  grabStretch: 22, // عریض شدن حباب هنگام گرفتن
+
+  grabStretch: 0, // قبلاً ۲۲ //  عریض شدن حباب هنگام گرفتن
+  grabGrow: 0, // بلندتر شدن حباب هنگام گرفتن (حداکثر دو برابر padding)  // قبلاً ۲۲
+  iconGrabScale: 0, // قبلاً ۱.۲۲ (هم‌اندازه‌ی iconActiveScale)  // بزرگ شدن آیکون زیر حباب هنگام گرفتن
+  stretchBase: 0, // قبلاً 10
+  stretchPerStep: 0, // قبلاً 8
+  squash: 0, // قبلاً 7
 };
 
 export const SLIDE_SPRING = { damping: 17, stiffness: 190, mass: 0.8 };

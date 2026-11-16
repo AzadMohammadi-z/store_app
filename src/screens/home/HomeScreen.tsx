@@ -13,6 +13,7 @@ import SectionHeader from '../../components/common/SectionHeader';
 import TopStoresList, { type Store } from '../../components/home/TopStoresList';
 import ProductGrid from '../../components/home/ProductGrid';
 import type { Product } from '../../components/home/ProductCard';
+import { useCart } from '../../cart/CartProvider';
 
 // داده‌ی نمونه؛ بعداً از API می‌آید
 const PRODUCTS: Product[] = [
@@ -132,7 +133,7 @@ const SLIDES: Slide[] = [
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
-
+  const { addItem } = useCart();
   return (
     <Screen>
       <View
@@ -179,9 +180,24 @@ export default function HomeScreen() {
             onPressProduct={p => {
               // بعداً: رفتن به صفحه‌ی محصول
             }}
-            onAdd={p => {
-              // بعداً: افزودن به سبد خرید
-            }}
+            onAdd={p =>
+              addItem({
+                id: p.id,
+                name: p.name,
+                specs: 'مشخصات محصول',
+                price: p.price,
+                from: p.from,
+                to: p.to,
+                // داده‌ی نمونه؛ بعداً از اطلاعات واقعی فروشگاه می‌آید
+                store: {
+                  id: p.store,
+                  name: p.store,
+                  city: 'تهران',
+                  shippingCost: 45000,
+                  eta: '۱ تا ۳ روز کاری',
+                },
+              })
+            }
           />
         </View>
 
