@@ -13,6 +13,7 @@ import type { CartGroup } from '../../cart/CartProvider';
 import { fonts } from '../../theme/fonts';
 import { ThemedText, ThemedView } from '../../theme/themed';
 import { formatPrice } from '../../utils/format';
+import StatusPill from '../orders/StatusPill';
 
 const ORDINALS = [
   'اول',
@@ -108,24 +109,7 @@ export default function PackageCard({
               ) : null}
             </View>
           </View>
-
-          <ThemedView
-            bg={t => t.auth.badgeBackground}
-            border={t => t.auth.badgeBorder}
-            style={{
-              paddingHorizontal: 14,
-              paddingVertical: 6,
-              borderRadius: 14,
-              borderWidth: 1,
-            }}
-          >
-            <ThemedText
-              color={t => t.auth.badgeText}
-              style={{ fontFamily: fonts.bold, fontSize: 12 }}
-            >
-              بسته {ordinal}
-            </ThemedText>
-          </ThemedView>
+          <StatusPill label={`بسته ${ordinal}`} tone="purple" />
         </View>
 
         <Divider />

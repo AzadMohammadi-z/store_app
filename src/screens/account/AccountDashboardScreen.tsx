@@ -1,11 +1,12 @@
 import React from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   Bell,
   FileText,
   Headphones,
   Heart,
+  LogOut,
   MapPin,
   MessageSquare,
   Star,
@@ -30,6 +31,8 @@ import GlassCard from '../../components/common/GlassCard';
 import Screen from '../../components/common/Screen';
 import { useAuth } from '../../auth/AuthProvider';
 import { SCREEN_PADDING, TAB_BAR_SPACE } from '../../constants/layout';
+import { useModal } from '../../components/modal/ModalProvider';
+import { useNavigation } from '@react-navigation/native';
 
 // داده‌ی نمونه؛ بعداً از API می‌آید
 const USER_NAME = 'کاربر نوازون';
@@ -156,13 +159,26 @@ function Reveal({
 
 export default function AccountDashboardScreen() {
   const { phone, logout } = useAuth();
+  const { showModal } = useModal();
+  const navigation = useNavigation<any>();
+  const menuItems = MENU_ITEMS.map(item =>
+    item.id === 'addresses'
+      ? { ...item, onPress: () => navigation.navigate('Addresses') }
+      : item,
+  );
 
-  const confirmLogout = () => {
-    Alert.alert('خروج از حساب', 'از حساب کاربری خارج می‌شوی؟', [
-      { text: 'انصراف', style: 'cancel' },
-      { text: 'خروج', style: 'destructive', onPress: logout },
-    ]);
-  };
+  const confirmLogout = () =>
+    showModal({
+      icon: LogOut,
+      tone: 'purple',
+      title: 'از حساب خارج می‌شوید؟',
+      message:
+        'برای استفاده‌ی دوباره باید با شماره موبایل و کد تأیید وارد شوید.',
+      actions: [
+        { label: 'خروج', variant: 'brand', onPress: logout },
+        { label: 'انصراف' },
+      ],
+    });
 
   return (
     <Screen>
@@ -185,17 +201,22 @@ export default function AccountDashboardScreen() {
         <Reveal index={2}>
           <OrderStatusCard
             counts={ORDER_COUNTS}
-            onPressAll={todo}
-            onPressStatus={todo}
+            onPressAll={() => navigation.navigate('Orders')}
+            onPressStatus={status =>
+              navigation.navigate('Orders', { filter: status })
+            }
           />
         </Reveal>
 
         <Reveal index={3}>
-          <ActiveOrderCard order={ACTIVE_ORDER} onTrack={todo} />
+          <ActiveOrderCard
+            order={ACTIVE_ORDER}
+            onTrack={() => navigation.navigate('Orders')}
+          />
         </Reveal>
 
         <Reveal index={4}>
-          <MenuList items={MENU_ITEMS} />
+          <MenuList items={menuItems} />
         </Reveal>
 
         <Reveal index={5}>

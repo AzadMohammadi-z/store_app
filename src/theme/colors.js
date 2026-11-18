@@ -121,6 +121,7 @@ const light = {
     purple: { bg: 'rgba(139,92,246,0.15)', icon: '#7C3AED' },
     blue: { bg: 'rgba(59,130,246,0.14)', icon: '#2563EB' },
     amber: { bg: 'rgba(245,158,11,0.18)', icon: '#B7791F' },
+    green: { bg: 'rgba(16,185,129,0.14)', icon: '#059669' },
   },
   account: {
     badge: '#5B4BE0',
@@ -134,6 +135,16 @@ const light = {
     logoutText: '#E11D48',
     trackButtonBackground: 'rgba(124,58,237,0.12)',
     trackButtonBorder: 'rgba(124,58,237,0.35)',
+  },
+  modal: {
+    scrim: 'rgba(20,24,48,0.35)',
+    card: 'rgba(255,255,255,0.96)',
+    cardBorder: 'rgba(255,255,255,1)',
+  },
+  form: {
+    field: 'rgba(255,255,255,0.7)',
+    fieldBorder: 'rgba(95,112,150,0.25)',
+    error: '#E11D48',
   },
 };
 
@@ -260,6 +271,7 @@ const dark = {
     purple: { bg: 'rgba(139,92,246,0.34)', icon: '#CDB8FF' },
     blue: { bg: 'rgba(59,130,246,0.32)', icon: '#A5C4FF' },
     amber: { bg: 'rgba(245,158,11,0.2)', icon: '#F8C555' },
+    green: { bg: 'rgba(52,211,153,0.2)', icon: '#34D399' },
   },
   account: {
     badge: '#5B4BE0',
@@ -273,6 +285,16 @@ const dark = {
     logoutText: '#FF8FA8',
     trackButtonBackground: 'rgba(124,58,237,0.3)',
     trackButtonBorder: 'rgba(167,139,250,0.4)',
+  },
+  modal: {
+    scrim: 'rgba(0,0,0,0.5)',
+    card: 'rgba(32,32,48,0.94)',
+    cardBorder: 'rgba(255,255,255,0.14)',
+  },
+  form: {
+    field: 'rgba(255,255,255,0.06)',
+    fieldBorder: 'rgba(255,255,255,0.12)',
+    error: '#FF8FA8',
   },
 };
 

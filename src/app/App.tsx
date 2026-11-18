@@ -13,6 +13,8 @@ import { StatusBar, View } from 'react-native';
 import AppBackground from '../components/common/AppBackground';
 import { AuthProvider } from '../auth/AuthProvider';
 import { CartProvider } from '../cart/CartProvider';
+import { ModalProvider } from '../components/modal/ModalProvider';
+import { AddressProvider } from '../address/AddressProvider';
 
 function ThemedApp() {
   const { theme, isDark, blurType } = useTheme();
@@ -59,7 +61,11 @@ export default function App() {
       <ThemeProvider>
         <AuthProvider>
           <CartProvider>
-            <ThemedApp />
+            <AddressProvider>
+              <ModalProvider>
+                <ThemedApp />
+              </ModalProvider>
+            </AddressProvider>
           </CartProvider>
         </AuthProvider>
       </ThemeProvider>

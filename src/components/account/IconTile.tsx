@@ -1,7 +1,14 @@
 import React from 'react';
 import { ThemedIcon, ThemedView } from '../../theme/themed';
 
-export type Tone = 'red' | 'indigo' | 'teal' | 'purple' | 'blue' | 'amber';
+export type Tone =
+  | 'red'
+  | 'indigo'
+  | 'teal'
+  | 'purple'
+  | 'blue'
+  | 'amber'
+  | 'green';
 
 type Props = {
   Icon: React.ComponentType<any>;

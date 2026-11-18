@@ -1,8 +1,9 @@
 import React from 'react';
 import { Alert, Pressable, ScrollView, View } from 'react-native';
+import { Info, ShoppingBag, Trash2 } from 'lucide-react-native';
+import { useModal } from '../../components/modal/ModalProvider';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
-import { Info, ShoppingBag } from 'lucide-react-native';
 import { useCart } from '../../cart/CartProvider';
 import GradientButton from '../../components/common/GradientButton';
 import Screen from '../../components/common/Screen';
@@ -41,15 +42,22 @@ function Chip({ text }: { text: string }) {
 export default function CartScreen() {
   const { theme } = useTheme();
   const navigation = useNavigation<any>();
+  const { showModal } = useModal();
   const cart = useCart();
   const empty = cart.lines.length === 0;
 
-  const confirmClear = () => {
-    Alert.alert('حذف همه', 'همه‌ی کالاهای سبد خرید حذف شوند؟', [
-      { text: 'انصراف', style: 'cancel' },
-      { text: 'حذف', style: 'destructive', onPress: cart.clear },
-    ]);
-  };
+  const confirmClear = () =>
+    showModal({
+      icon: Trash2,
+      tone: 'red',
+      title: 'حذف همه‌ی کالاها؟',
+      message:
+        'تمام کالاهای سبد خرید شما از همه‌ی فروشگاه‌ها حذف می‌شوند. این کار قابل بازگشت نیست.',
+      actions: [
+        { label: 'بله، حذف همه', variant: 'danger', onPress: cart.clear },
+        { label: 'انصراف' },
+      ],
+    });
 
   return (
     <Screen>
@@ -209,9 +217,7 @@ export default function CartScreen() {
               shippingTotal={cart.shippingTotal}
               discount={cart.discount}
               payable={cart.payable}
-              onCheckout={() => {
-                // TODO: رفتن به صفحه‌ی پرداخت
-              }}
+              onCheckout={() => navigation.navigate('Checkout')}
             />
           </>
         )}
