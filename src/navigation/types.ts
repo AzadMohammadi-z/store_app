@@ -14,6 +14,8 @@ export type RootStackParamList = {
   Orders: { filter?: OrderFilter } | undefined;
   Addresses: undefined;
   AddressEdit: { id?: string } | undefined;
+  EditProfile: undefined;
+  Product: { id: string };
   Detail: { id: string };
 };
 

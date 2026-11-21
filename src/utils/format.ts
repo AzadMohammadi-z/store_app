@@ -52,3 +52,8 @@ export function formatTimer(totalSeconds: number) {
     `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`,
   );
 }
+
+/** ۴٫۸ (جداکننده‌ی اعشار فارسی) */
+export function formatRating(value: number) {
+  return toFaDigits(value.toFixed(1)).replace('.', '٫');
+}

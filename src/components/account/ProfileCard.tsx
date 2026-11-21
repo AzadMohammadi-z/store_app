@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Pencil } from 'lucide-react-native';
 import GlassCard from '../common/GlassCard';
-import GradientBox from '../common/GradientBox';
+import Avatar from './Avatar';
 import SquareButton from '../common/SquareButton';
 import { fonts } from '../../theme/fonts';
 import { ThemedText } from '../../theme/themed';
@@ -30,17 +30,7 @@ export default function ProfileCard({ name, phone, onEdit }: Props) {
         gap: 16,
       }}
     >
-      <GradientBox
-        from="#6D4AFF"
-        to="#3B82F6"
-        style={{
-          width: 66,
-          height: 66,
-          borderRadius: 33,
-          borderWidth: 2,
-          borderColor: 'rgba(255,255,255,0.35)',
-        }}
-      />
+      <Avatar size={66} />
 
       <View style={{ flex: 1, alignItems: 'flex-end', gap: 4 }}>
         <ThemedText

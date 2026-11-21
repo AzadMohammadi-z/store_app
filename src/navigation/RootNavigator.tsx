@@ -6,6 +6,8 @@ import OrdersScreen from '../screens/orders/OrdersScreen';
 import AddressEditScreen from '../screens/address/AddressEditScreen';
 import AddressesScreen from '../screens/address/AddressesScreen';
 import type { RootStackParamList } from './types';
+import EditProfileScreen from '../screens/profile/EditProfileScreen';
+import ProductScreen from '../screens/product/ProductScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,6 +38,16 @@ export default function RootNavigator() {
       <Stack.Screen
         name="AddressEdit"
         component={AddressEditScreen}
+        options={{ animation: 'slide_from_left' }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{ animation: 'slide_from_left' }}
+      />
+      <Stack.Screen
+        name="Product"
+        component={ProductScreen}
         options={{ animation: 'slide_from_left' }}
       />
     </Stack.Navigator>

@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  Image,
   ImageSourcePropType,
   Pressable,
   StyleSheet,
-  Text,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -15,10 +13,10 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import GradientBox from '../common/GradientBox';
 import { SCREEN_PADDING } from '../../constants/layout';
 import { fonts } from '../../theme/fonts';
 import { ThemedText, ThemedView } from '../../theme/themed';
+import StoreAvatar from '../common/StoreAvatar';
 
 export type Store = {
   id: string;
@@ -86,21 +84,14 @@ function StoreCard({ store, index, scrollX, viewW, onPress }: CardProps) {
           border={t => t.card.border}
           style={styles.card}
         >
-          <GradientBox
+          <StoreAvatar
+            size={64}
+            ring={false}
             from={store.from ?? '#60A5FA'}
             to={store.to ?? '#A78BFA'}
-            style={styles.avatar}
-          >
-            {store.logo ? (
-              <Image
-                source={store.logo}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            ) : (
-              <Text style={styles.avatarLetter}>{store.name.charAt(0)}</Text>
-            )}
-          </GradientBox>
+            logo={store.logo}
+            letter={store.name.charAt(0)}
+          />
 
           <View style={styles.texts}>
             <ThemedText
@@ -174,18 +165,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     alignItems: 'center',
     gap: 12,
-  },
-  avatar: {
-    width: AVATAR,
-    height: AVATAR,
-    borderRadius: AVATAR / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarLetter: {
-    color: '#FFFFFF',
-    fontFamily: fonts.bold,
-    fontSize: 24,
   },
   texts: {
     alignSelf: 'stretch',

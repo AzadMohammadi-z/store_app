@@ -33,9 +33,7 @@ import { useAuth } from '../../auth/AuthProvider';
 import { SCREEN_PADDING, TAB_BAR_SPACE } from '../../constants/layout';
 import { useModal } from '../../components/modal/ModalProvider';
 import { useNavigation } from '@react-navigation/native';
-
-// داده‌ی نمونه؛ بعداً از API می‌آید
-const USER_NAME = 'کاربر نوازون';
+import { useProfile } from '../../profile/ProfileProvider';
 
 const ORDER_COUNTS: Record<OrderStatus, number> = {
   pending: 1,
@@ -160,6 +158,7 @@ function Reveal({
 export default function AccountDashboardScreen() {
   const { phone, logout } = useAuth();
   const { showModal } = useModal();
+  const { fullName } = useProfile();
   const navigation = useNavigation<any>();
   const menuItems = MENU_ITEMS.map(item =>
     item.id === 'addresses'
@@ -195,7 +194,11 @@ export default function AccountDashboardScreen() {
         </Reveal>
 
         <Reveal index={1}>
-          <ProfileCard name={USER_NAME} phone={phone} onEdit={todo} />
+          <ProfileCard
+            name={fullName}
+            phone={phone}
+            onEdit={() => navigation.navigate('EditProfile')}
+          />
         </Reveal>
 
         <Reveal index={2}>

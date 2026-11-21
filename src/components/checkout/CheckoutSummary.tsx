@@ -4,10 +4,10 @@ import { useCart } from '../../cart/CartProvider';
 import InfoRow from '../cart/InfoRow';
 import Divider from '../common/Divider';
 import GlassCard from '../common/GlassCard';
-import GradientBox from '../common/GradientBox';
 import { fonts } from '../../theme/fonts';
 import { ThemedText } from '../../theme/themed';
 import { formatPrice, toFaDigits } from '../../utils/format';
+import StoreAvatar from '../common/StoreAvatar';
 
 export default function CheckoutSummary({
   onEditCart,
@@ -52,16 +52,10 @@ export default function CheckoutSummary({
               gap: 12,
             }}
           >
-            <GradientBox
-              from={group.store.from ?? '#818CF8'}
-              to={group.store.to ?? '#A78BFA'}
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 24,
-                borderWidth: 2,
-                borderColor: 'rgba(255,255,255,0.35)',
-              }}
+            <StoreAvatar
+              size={48}
+              from={group.store.from}
+              to={group.store.to}
             />
 
             <View style={{ flex: 1, alignItems: 'flex-end', gap: 2 }}>

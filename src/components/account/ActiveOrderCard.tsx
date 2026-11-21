@@ -2,7 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import Divider from '../common/Divider';
 import GlassCard from '../common/GlassCard';
-import GradientBox from '../common/GradientBox';
 import ProgressBar from '../common/ProgressBar';
 import TintedButton from '../common/TintedButton';
 import StatusPill from '../orders/StatusPill';
@@ -10,6 +9,7 @@ import { STATUS_META, type OrderStatus } from './orderStatus';
 import { fonts } from '../../theme/fonts';
 import { ThemedText } from '../../theme/themed';
 import { toFaDigits } from '../../utils/format';
+import StoreAvatar from '../common/StoreAvatar';
 
 export type ActiveOrder = {
   number: string;
@@ -83,17 +83,7 @@ export default function ActiveOrderCard({ order, onTrack }: Props) {
                   flex: 1,
                 }}
               >
-                <GradientBox
-                  from={pkg.from ?? '#818CF8'}
-                  to={pkg.to ?? '#A78BFA'}
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 24,
-                    borderWidth: 2,
-                    borderColor: 'rgba(255,255,255,0.35)',
-                  }}
-                />
+                <StoreAvatar size={48} from={pkg.from} to={pkg.to} />
                 <View style={{ alignItems: 'flex-end', gap: 2, flex: 1 }}>
                   <ThemedText
                     color={t => t.text.primary}

@@ -28,6 +28,7 @@ import GradientBox from '../common/GradientBox';
 import { fonts } from '../../theme/fonts';
 import { useTheme } from '../../theme/ThemeProvider';
 import { ThemedText, ThemedView } from '../../theme/themed';
+import PagerDots from '../common/PagerDots';
 
 export type Slide = {
   id: string;
@@ -183,31 +184,6 @@ function SlideCard({ item, index, scrollX, width, step }: CardProps) {
   );
 }
 
-/* ------------------------------ نقطه‌های پایین ------------------------------ */
-
-type DotProps = {
-  index: number;
-  scrollX: SharedValue<number>;
-  step: number;
-  color: string;
-};
-
-function Dot({ index, scrollX, step, color }: DotProps) {
-  const style = useAnimatedStyle(() => {
-    const p = interpolate(
-      scrollX.value,
-      [(index - 1) * step, index * step, (index + 1) * step],
-      [0, 1, 0],
-      Extrapolation.CLAMP,
-    );
-    return { width: 7 + p * 17, opacity: 0.3 + p * 0.7 };
-  });
-
-  return (
-    <Animated.View style={[styles.dot, { backgroundColor: color }, style]} />
-  );
-}
-
 /* ------------------------------ اسلایدر اصلی ------------------------------ */
 
 type Props = {
@@ -293,17 +269,13 @@ export default function HeroCarousel({
       />
 
       {/* نقطه‌ها؛ row-reverse تا اولین نقطه سمت راست باشد */}
-      <View style={styles.dots}>
-        {slides.map((s, i) => (
-          <Dot
-            key={s.id}
-            index={i}
-            scrollX={scrollX}
-            step={step}
-            color={theme.gradient.to}
-          />
-        ))}
-      </View>
+      <PagerDots
+        count={slides.length}
+        scrollX={scrollX}
+        step={step}
+        color={theme.gradient.to}
+        style={{ marginTop: 12 }}
+      />
     </View>
   );
 }
@@ -363,16 +335,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: fonts.bold,
     fontSize: 12,
-  },
-  dots: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 12,
-  },
-  dot: {
-    height: 7,
-    borderRadius: 4,
   },
 });

@@ -15,6 +15,8 @@ import { AuthProvider } from '../auth/AuthProvider';
 import { CartProvider } from '../cart/CartProvider';
 import { ModalProvider } from '../components/modal/ModalProvider';
 import { AddressProvider } from '../address/AddressProvider';
+import { ProfileProvider } from '../profile/ProfileProvider';
+import { FavoritesProvider } from '../favorites/FavoritesProvider';
 
 function ThemedApp() {
   const { theme, isDark, blurType } = useTheme();
@@ -62,9 +64,13 @@ export default function App() {
         <AuthProvider>
           <CartProvider>
             <AddressProvider>
-              <ModalProvider>
-                <ThemedApp />
-              </ModalProvider>
+              <ProfileProvider>
+                <FavoritesProvider>
+                  <ModalProvider>
+                    <ThemedApp />
+                  </ModalProvider>
+                </FavoritesProvider>
+              </ProfileProvider>
             </AddressProvider>
           </CartProvider>
         </AuthProvider>

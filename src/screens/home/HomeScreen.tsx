@@ -12,60 +12,9 @@ import HomeHeader from './components/HomeHeader';
 import SectionHeader from '../../components/common/SectionHeader';
 import TopStoresList, { type Store } from '../../components/home/TopStoresList';
 import ProductGrid from '../../components/home/ProductGrid';
-import type { Product } from '../../components/home/ProductCard';
+import { useNavigation } from '@react-navigation/native';
+import { PRODUCTS, mockStoreInfo } from '../../data/products';
 import { useCart } from '../../cart/CartProvider';
-
-// داده‌ی نمونه؛ بعداً از API می‌آید
-const PRODUCTS: Product[] = [
-  {
-    id: '1',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 1250000,
-    from: '#93C5FD',
-    to: '#C4B5FD',
-  },
-  {
-    id: '2',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 890000,
-    from: '#C4B5FD',
-    to: '#F9A8D4',
-  },
-  {
-    id: '3',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 2400000,
-    from: '#A5B4FC',
-    to: '#67E8F9',
-  },
-  {
-    id: '4',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 560000,
-    from: '#F9A8D4',
-    to: '#FCA5A5',
-  },
-  {
-    id: '5',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 3150000,
-    from: '#86EFAC',
-    to: '#93C5FD',
-  },
-  {
-    id: '6',
-    name: 'نام محصول',
-    store: 'نام فروشگاه',
-    price: 740000,
-    from: '#FDE68A',
-    to: '#F9A8D4',
-  },
-];
 
 // داده‌ی نمونه؛ بعداً از API می‌آید
 const STORES: Store[] = [
@@ -132,6 +81,7 @@ const SLIDES: Slide[] = [
 ];
 
 export default function HomeScreen() {
+  const navigation = useNavigation<any>();
   const [query, setQuery] = useState('');
   const { addItem } = useCart();
   return (
@@ -177,9 +127,7 @@ export default function HomeScreen() {
           <SectionHeader title="پیشنهاد برای شما" />
           <ProductGrid
             products={PRODUCTS}
-            onPressProduct={p => {
-              // بعداً: رفتن به صفحه‌ی محصول
-            }}
+            onPressProduct={p => navigation.navigate('Product', { id: p.id })}
             onAdd={p =>
               addItem({
                 id: p.id,
@@ -188,14 +136,7 @@ export default function HomeScreen() {
                 price: p.price,
                 from: p.from,
                 to: p.to,
-                // داده‌ی نمونه؛ بعداً از اطلاعات واقعی فروشگاه می‌آید
-                store: {
-                  id: p.store,
-                  name: p.store,
-                  city: 'تهران',
-                  shippingCost: 45000,
-                  eta: '۱ تا ۳ روز کاری',
-                },
+                store: mockStoreInfo(p.store, p.from, p.to),
               })
             }
           />

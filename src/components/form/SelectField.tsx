@@ -8,9 +8,14 @@ import { useTheme } from '../../theme/ThemeProvider';
 type Props = {
   value: string | null;
   placeholder: string;
-  onPress: () => void;
+  /** اگر ندهی، فیلد فقط‌خواندنی است (بدون لمس و بدون کم‌رنگ شدن) */
+  onPress?: () => void;
   disabled?: boolean;
   error?: boolean;
+  /** آیکون سمت چپ؛ پیش‌فرض فلش پایین */
+  Icon?: React.ComponentType<any>;
+  /** فونت ارقام فارسی و چپ‌به‌راست (برای شماره و تاریخ) */
+  numeric?: boolean;
 };
 
 export default function SelectField({
@@ -19,8 +24,43 @@ export default function SelectField({
   onPress,
   disabled = false,
   error = false,
+  Icon = ChevronDown,
+  numeric = false,
 }: Props) {
   const { theme } = useTheme();
+
+  const field = (
+    <FieldShell height={56} error={error} disabled={disabled}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row-reverse',
+          alignItems: 'center',
+          paddingHorizontal: 16,
+          gap: 8,
+        }}
+      >
+        <Text
+          numberOfLines={numeric ? 1 : 2}
+          style={{
+            flex: 1,
+            textAlign: 'right',
+            writingDirection: numeric ? 'ltr' : 'rtl',
+            fontFamily: numeric ? fonts.numeric : fonts.regular,
+            fontSize: numeric ? 17 : 14,
+            lineHeight: numeric ? undefined : 22,
+            includeFontPadding: false,
+            color: value ? theme.text.primary : theme.search.placeholder,
+          }}
+        >
+          {value ?? placeholder}
+        </Text>
+        <Icon size={18} color={theme.text.secondary} strokeWidth={2.2} />
+      </View>
+    </FieldShell>
+  );
+
+  if (!onPress) return field;
 
   return (
     <Pressable
@@ -30,37 +70,7 @@ export default function SelectField({
       accessibilityLabel={value ?? placeholder}
       accessibilityState={{ disabled }}
     >
-      <FieldShell height={56} error={error} disabled={disabled}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row-reverse',
-            alignItems: 'center',
-            paddingHorizontal: 16,
-            gap: 8,
-          }}
-        >
-          <Text
-            numberOfLines={2}
-            style={{
-              flex: 1,
-              textAlign: 'right',
-              writingDirection: 'rtl',
-              fontFamily: fonts.regular,
-              fontSize: 14,
-              lineHeight: 22,
-              color: value ? theme.text.primary : theme.search.placeholder,
-            }}
-          >
-            {value ?? placeholder}
-          </Text>
-          <ChevronDown
-            size={18}
-            color={theme.text.secondary}
-            strokeWidth={2.2}
-          />
-        </View>
-      </FieldShell>
+      {field}
     </Pressable>
   );
 }

@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Divider from '../common/Divider';
 import GlassCard from '../common/GlassCard';
-import GradientBox from '../common/GradientBox';
 import GradientButton from '../common/GradientButton';
 import ProgressBar from '../common/ProgressBar';
 import TintedButton from '../common/TintedButton';
@@ -14,6 +13,7 @@ import { fonts } from '../../theme/fonts';
 import { useTheme } from '../../theme/ThemeProvider';
 import { ThemedText } from '../../theme/themed';
 import { formatPrice, toFaDigits } from '../../utils/format';
+import StoreAvatar from '../common/StoreAvatar';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -55,17 +55,7 @@ function PackageRow({
       <View
         style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 12 }}
       >
-        <GradientBox
-          from={pkg.from ?? '#818CF8'}
-          to={pkg.to ?? '#A78BFA'}
-          style={{
-            width: 52,
-            height: 52,
-            borderRadius: 26,
-            borderWidth: 2,
-            borderColor: 'rgba(255,255,255,0.35)',
-          }}
-        />
+        <StoreAvatar size={52} from={pkg.from} to={pkg.to} />
 
         <View style={{ flex: 1, alignItems: 'flex-end', gap: 2 }}>
           <ThemedText

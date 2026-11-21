@@ -13,6 +13,8 @@ type Props = {
   onPress: () => void;
   height?: number;
   radius?: number;
+  /** نسخه‌ی کوچک و جمع‌وجور (عرض به اندازه‌ی متن) برای کنار متن‌ها */
+  small?: boolean;
 };
 
 export default function TintedButton({
@@ -20,6 +22,7 @@ export default function TintedButton({
   onPress,
   height = 54,
   radius = 27,
+  small = false,
 }: Props) {
   const press = useSharedValue(0);
   const style = useAnimatedStyle(() => ({
@@ -43,16 +46,17 @@ export default function TintedButton({
           bg={t => t.account.trackButtonBackground}
           border={t => t.account.trackButtonBorder}
           style={{
-            height,
-            borderRadius: radius,
+            height: small ? 40 : height,
+            borderRadius: small ? 20 : radius,
             borderWidth: 1,
+            paddingHorizontal: small ? 22 : 0,
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
           <ThemedText
             color={t => t.text.primary}
-            style={{ fontFamily: fonts.bold, fontSize: 15 }}
+            style={{ fontFamily: fonts.bold, fontSize: small ? 14 : 15 }}
           >
             {label}
           </ThemedText>

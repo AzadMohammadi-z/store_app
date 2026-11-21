@@ -6,7 +6,6 @@ import Animated, {
   LinearTransition,
 } from 'react-native-reanimated';
 import Divider from '../common/Divider';
-import GradientBox from '../common/GradientBox';
 import CartItemRow from './CartItemRow';
 import InfoRow from './InfoRow';
 import type { CartGroup } from '../../cart/CartProvider';
@@ -14,6 +13,7 @@ import { fonts } from '../../theme/fonts';
 import { ThemedText, ThemedView } from '../../theme/themed';
 import { formatPrice } from '../../utils/format';
 import StatusPill from '../orders/StatusPill';
+import StoreAvatar from '../common/StoreAvatar';
 
 const ORDINALS = [
   'اول',
@@ -72,17 +72,7 @@ export default function PackageCard({
               gap: 12,
             }}
           >
-            <GradientBox
-              from={store.from ?? '#818CF8'}
-              to={store.to ?? '#A78BFA'}
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 24,
-                borderWidth: 2,
-                borderColor: 'rgba(255,255,255,0.35)',
-              }}
-            />
+            <StoreAvatar size={48} from={store.from} to={store.to} />
             <View style={{ alignItems: 'flex-end', gap: 2 }}>
               <ThemedText
                 color={t => t.text.primary}

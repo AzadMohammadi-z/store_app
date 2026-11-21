@@ -27,6 +27,9 @@ type Props = {
   autoComplete?: TextInputProps['autoComplete'];
   textContentType?: TextInputProps['textContentType'];
   accessibilityLabel?: string;
+  /** برای ایمیل و متن لاتین: چپ‌به‌راست، سمت راست‌چین، فونت ارقام فارسی معمولی */
+  ltr?: boolean;
+  autoCapitalize?: TextInputProps['autoCapitalize'];
 };
 
 export default function TextField({
@@ -37,6 +40,8 @@ export default function TextField({
   multiline = false,
   height = 56,
   numeric = false,
+  ltr = false,
+  autoCapitalize,
   keyboardType,
   returnKeyType,
   autoComplete,
@@ -68,16 +73,21 @@ export default function TextField({
         selectionColor={theme.gradient.to}
         cursorColor={theme.gradient.to}
         accessibilityLabel={accessibilityLabel ?? placeholder}
+        autoCapitalize={autoCapitalize}
         style={[
           {
             flex: 1,
             paddingHorizontal: 18,
             paddingVertical: multiline ? 16 : 0,
             textAlign: 'right',
-            writingDirection: numeric ? 'ltr' : 'rtl',
+            writingDirection: numeric || ltr ? 'ltr' : 'rtl',
             textAlignVertical: multiline ? 'top' : 'center',
-            fontFamily: numeric ? fonts.numeric : fonts.regular,
-            fontSize: numeric ? 17 : 15,
+            fontFamily: numeric
+              ? fonts.numeric
+              : ltr
+              ? fonts.numericRegular
+              : fonts.regular,
+            fontSize: numeric ? 17 : ltr ? 16 : 15,
             includeFontPadding: false,
           },
           inputText,

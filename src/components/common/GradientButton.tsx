@@ -18,6 +18,7 @@ import { fonts } from '../../theme/fonts';
 
 type Props = {
   label: string;
+  Icon?: React.ComponentType<any>;
   onPress: () => void;
   from: string;
   to: string;
@@ -31,6 +32,7 @@ type Props = {
 
 export default function GradientButton({
   label,
+  Icon,
   onPress,
   from,
   to,
@@ -110,7 +112,18 @@ export default function GradientButton({
             {loading ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
-              <Text style={styles.label}>{label}</Text>
+              <View
+                style={{
+                  flexDirection: 'row-reverse',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <Text style={styles.label}>{label}</Text>
+                {Icon ? (
+                  <Icon size={20} color="#FFFFFF" strokeWidth={2.2} />
+                ) : null}
+              </View>
             )}
           </GradientBox>
         </Animated.View>
